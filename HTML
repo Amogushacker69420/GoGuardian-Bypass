@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Website Embed Tool</title>
-    <style>
-      /* Add CSS styling here */
-    </style>
-  </head>
-  <body>
-    <h1>Website Embed Tool</h1>
-    <form>
-      <label for="url">Enter a website URL:</label>
-      <input type="text" id="url" name="url" required>
-      <button type="submit">Embed Website</button>
-    </form>
-    <div id="embed-container"></div>
-    <div id="error-message"></div>
-    <script src="script.js"></script>
-  </body>
+<head>
+	<title>Website Embed Tool</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Website Embed Tool</h1>
+		<form id="embed-form">
+			<label for="website-input">Enter website URL:</label>
+			<input type="text" id="website-input" name="website-input">
+			<button type="submit">Embed</button>
+			<button type="button" onclick="resetEmbed()">Reset</button>
+		</form>
+		<div id="embed-container"></div>
+	</div>
+
+	<script src="script.js"></script>
+</body>
 </html>
