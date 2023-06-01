@@ -1,1 +1,46 @@
+// Get references to the form and the two div elements
+const form = document.querySelector('form');
+const embedContainer = document.querySelector('#embed-container');
+const errorMessage = document.querySelector('#error-message');
 
+// Add a submit event listener to the form
+form.addEventListener('submit', event => {
+  // Prevent the default form submission behavior
+  event.preventDefault();
+
+  // Get the URL entered by the user
+  const url = form.url.value.trim();
+
+  // Check if the URL is valid
+  if (!url.startsWith('http')) {
+    errorMessage.textContent = 'Invalid URL. Please enter a valid website URL starting with http or https.';
+    embedContainer.innerHTML = '';
+    return;
+  }
+
+  // Use fetch to get the website data
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(html => {
+      // Create a new HTML document and set its body to the website HTML
+      const website = new DOMParser().parseFromString(html, 'text/html');
+      const websiteBody = website.querySelector('body');
+
+      // Clear any previous error message and embedded website
+      errorMessage.textContent = '';
+      embedContainer.innerHTML = '';
+
+      // Append the website body to the embed container
+      embedContainer.appendChild(websiteBody);
+    })
+    .catch(error => {
+      errorMessage.textContent = 'There was an error fetching the website data. Please try again later.';
+      embedContainer.innerHTML = '';
+      console.error(error);
+    });
+});
